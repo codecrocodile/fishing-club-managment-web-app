@@ -1,0 +1,88 @@
+.topic {
+    padding: 2px 0 0 20px;
+    background:transparent url('../../resources/images/post.gif') no-repeat;
+}
+
+.topic b {
+    font-family: tahoma, verdana;
+    display: block;
+    color: #333;
+}
+
+.author: {
+    color: #333
+}
+
+.eventSummaryGrid .x-grid-rowbody {
+    margin: 5px 20px 10px 25px !important;
+    color: #555;
+    font-size: 11px;
+}
+
+
+.myimagebutton_home {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/home-32.png') !important; border:none
+}
+
+.myimagebutton_email {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/read_message-32.png') !important; border:none
+}
+
+.myimagebutton_profile {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/contacts-32.png') !important; border:none
+}
+
+.myimagebutton_settings {
+    width:32px!important; 
+    height:32px!important;
+/*     padding: 2px; */
+/*     border: 2px solid red; */
+    background-image: url('../../resources/images/settings2-32.png') !important; border:none
+}
+
+.myimagebutton_cancel {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/cancel-32.png') !important;  border:none
+}
+
+.myimagebutton_save {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/save-32.png') !important; border:none
+}
+
+.myimagebutton_about {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/about-32.png') !important; border:none
+}
+
+.myimagebutton_fishinglog {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/fish-2-32.png') !important; border:none
+}
+
+.balloons {
+    background-image: url('../../resources/images/balloons-white.png') !important; border:none
+}
+
+.balloon {
+    background-image: url('../../resources/images/balloon-white.png') !important; border:none
+}
+
+.forumSummaryGrid .x-grid-rowbody {
+    margin: 0px 0px 0px 50px !important;
+    padding: 0 0 0 0 !important;
+    color: #555;
+    font-size: 11px;
+}
+
+.x-form-item-label {text-transform:uppercase;}

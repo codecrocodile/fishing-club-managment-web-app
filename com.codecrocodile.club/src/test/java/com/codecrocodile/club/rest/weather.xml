@@ -1,0 +1,11 @@
+<!DOCTYPE dataset SYSTEM "my-dataset.dtd">
+<dataset>
+    <weather    weatherId="1" 
+                venueId="1"
+                date="null"
+                maxtempC="10"
+                maxtempF="15"
+                mintempC="8"
+                mintempF="10"
+    /> 
+</dataset>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codecrocodile.dao.mybatis.mappers.EventMapper">
+
+	<resultMap id="eventResultMap" type="com.codecrocodile.club.model.Event">
+		<id property="eventId" column="eventId" />
+		<result property="userId" column="userId" />
+		<result property="date" column="date" />
+		<result property="eventDate" column="eventDate" />
+		<result property="eventTime" column="eventTime" />
+		<result property="name" column="name" />
+		<result property="location" column="location" />
+		<result property="description" column="description" />
+		<result property="status" column="status" />
+		<result property="userName" column="userName" />
+		<collection property="eventUserResponses" ofType="com.codecrocodile.club.model.EventUserResponse">
+			<id property="eventResponseId" column="erEventResponseId"/>
+			<result property="eventId" column="erEventId" />
+			<result property="date" column="erDate" />
+			<result property="response" column="erResponse" />
+			<result property="comment" column="erComment" />
+			<result property="userId" column="erUserId" />
+			<result property="userName" column="erUserName" />
+		</collection>
+	</resultMap>
+	
+	<select id="isEventExists" parameterType="com.codecrocodile.club.model.Event" resultType="boolean">
+		SELECT IFNULL ((SELECT 1 FROM event WHERE eventId = #{eventId} &#38;&#38; accountId = #{accountId}), 0) AS isExists
+	</select>
+	
+	<insert id="insertEvent" parameterType="com.codecrocodile.club.model.Event" useGeneratedKeys="true" keyProperty="eventId">
+		INSERT INTO event (accountId, userId, date, eventDate, eventTime, name, location, description, status, retired) 
+		VALUES (#{accountId}, #{userId}, #{date}, #{eventDate}, #{eventTime}, #{name}, #{location}, #{description}, #{status}, 0);
+	</insert>
+	
+	<update id="updateEvent" parameterType="com.codecrocodile.club.model.Event">
+		UPDATE event 
+		SET userId = #{userId}, 
+			date = #{date}, 
+			eventDate = #{eventDate}, 
+			eventTime = #{eventTime}, 
+			name = #{name}, 
+			location = #{location}, 
+			description = #{description}, 
+			status = #{status} 
+		WHERE eventId = #{eventId} &#38;&#38; accountId = #{accountId}
+	</update>
+	
+	<select id="getEvents" resultMap="eventResultMap">
+	  	SELECT e.eventId, e.userId, CONCAT(eu.forename, ' ', eu.surname) AS userName, e.date, e.eventDate, e.eventTime, e.name, e.location, e.description, e.status, 
+	      er.eventResponseId AS erEventResponseId, er.eventId AS erEventId, er.userId AS erUserId, CONCAT(eru.forename, ' ', eru.surname) AS erUserName, er.date AS erDate, er.response AS erResponse, er.comment AS erComment
+	    FROM event e
+	    JOIN (
+	      SELECT eventId
+	      FROM event
+	    	WHERE #{accountId} AND retired &lt;&gt; 1 
+		  	ORDER BY date DESC
+		  	LIMIT #{skipRows}, #{pageSize}
+	    ) t on e.eventId = t.eventId
+	    JOIN user eu on e.userId = eu.userId
+	    LEFT OUTER JOIN eventresponse er on e.eventId = er.eventId AND er.retired &lt;&gt; 1
+		LEFT OUTER JOIN user eru on er.userId = eru.userId
+	</select>
+	
+	<update id="retireEvent">
+		UPDATE event 
+		SET retired = 1
+		WHERE eventId = #{eventId} &#38;&#38; accountId = #{accountId}
+	</update>
+	
+	
+	<select id="getEventCount" parameterType="int" resultType="int">
+		select count(1) as cnt 
+		from event e
+		where e.accountId = #{accountId} AND retired &lt;&gt; 1
+	</select>
+	
+	<insert id="insertEventResponse" parameterType="com.codecrocodile.club.model.EventResponse" useGeneratedKeys="true" keyProperty="eventResponseId">
+
+	</insert>
+	
+</mapper>

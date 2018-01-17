@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codecrocodile.dao.mybatis.mappers.MemberMapper">
+
+	<resultMap id="memberResultMap" type="Member">
+		<id property="userId" column="userId" />
+		<result property="accountId" column="accountId" />
+		<result property="title" column="title" />
+		<result property="forename" column="forename" />
+		<result property="surname" column="surname" />
+		<result property="dob" column="dob" />
+		<result property="gender" column="gender" />
+		<result property="address1" column="address1" />
+		<result property="address2" column="address2" />
+		<result property="address3" column="address3" />
+		<result property="postcode" column="postcode" />
+		<result property="homePhone" column="homePhone" />
+		<result property="mobilePhone" column="mobilePhone" />
+		<result property="email" column="email" />
+		<result property="photo" column="photo" />
+		<result property="photoSource" column="photoSource" /> 
+		<result property="photoThumb" column="photoThumb" />
+		<result property="password" column="password" />
+		<result property="startDate" column="startDate" />
+		<result property="suspendedDate" column="suspendedDate" />
+		<result property="retiredDate" column="retiredDate" />
+		<result property="membershipTypeId" column="membershipTypeId" />
+	</resultMap>
+	
+	<sql id="userSelect">
+		SELECT userId, accountId, title, forename, surname, dob, gender, address1, address2, address3, postcode, homePhone, mobilePhone, email, 
+			photo, photoSource, photoThumb, password, startDate, suspendedDate, retiredDate, membershipTypeId 
+		FROM user
+	</sql>
+	
+	<select id="getMembers" parameterType="int" resultMap="memberResultMap">
+		<include refid="userSelect" />
+		WHERE accountId = #{accountId} AND retiredDate IS NULL
+		ORDER BY surname, forename
+	</select>
+	
+	<select id="getMember" parameterType="int" resultMap="memberResultMap">
+		<include refid="userSelect" />
+		WHERE userId = #{userId}
+	</select>
+	
+	<update id="updateSafeMemberDetails" parameterType="Member">
+		UPDATE user 
+		SET 
+		  title = #{title}, 
+		  forename = #{forename}, 
+		  surname = #{surname}, 
+		  dob = #{dob}, 
+		  gender = #{gender}, 
+		  address1 = #{address1}, 
+		  address2 = #{address2}, 
+		  address3 = #{address3}, 
+		  postcode = #{postcode}, 
+		  homePhone = #{homePhone}, 
+		  mobilePhone = #{mobilePhone}, 
+		  email = #{email}, 
+		  photo = #{photo}, 
+		  photoSource = #{photoSource}, 
+		  photoThumb = #{photoThumb}
+		WHERE 
+		userId = #{userId}
+	</update>
+	
+	<insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="userId">
+		INSERT INTO user (
+			accountId, title, forename, surname, dob, gender, address1, address2, address3, postcode, 
+			homePhone, mobilePhone, email, photo, photoSource, photoThumb, 
+			password, startDate, suspendedDate, retiredDate, membershipTypeId)  
+		VALUES (
+			#{accountId}, #{title}, #{forename}, #{surname}, #{dob}, #{gender}, #{address1}, #{address2}, #{address3}, #{postcode},
+			#{homePhone}, #{mobilePhone}, #{email}, #{photo}, #{photoSource}, #{photoThumb},
+			#{password}, #{startDate}, NULL, NULL, #{membershipTypeId} 
+		)
+	</insert>
+	
+	<select id="isMemberOfAccount" resultType="boolean">
+		SELECT IFNULL ((SELECT 1 FROM user WHERE accountId = #{accountId} &#38;&#38; userId = #{userId}), 0) AS isExists
+	</select>
+	
+	<update id="updateMember" parameterType="Member">
+		UPDATE user 
+		SET 
+			title = #{title}, 
+			forename = #{forename}, 
+			surname = #{surname}, 
+			dob = #{dob}, 
+			gender = #{gender}, 
+			address1 = #{address1}, 
+			address2 = #{address2}, 
+			address3 = #{address3}, 
+			postcode = #{postcode}, 
+			homePhone = #{homePhone}, 
+			mobilePhone = #{mobilePhone}, 
+			email = #{email}, 
+			photo = #{photo}, 
+			photoSource = #{photoSource}, 
+			photoThumb = #{photoThumb}, 
+			startDate = #{startDate}, 
+			suspendedDate = #{suspendedDate}, 
+			membershipTypeId = #{membershipTypeId}
+		WHERE userId = #{userId}
+	</update>
+	
+	<update id="retireMember" parameterType="int">
+		UPDATE user 
+		SET retiredDate = now()
+		WHERE userId = #{userId}
+	</update>
+	
+</mapper>

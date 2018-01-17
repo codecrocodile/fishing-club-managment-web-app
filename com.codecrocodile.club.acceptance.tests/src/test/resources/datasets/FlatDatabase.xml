@@ -1,0 +1,19 @@
+<dataset>
+    <weather    weatherId="1" 
+                venueId="1"
+                date="2014-01-01"
+                maxtempC="10"
+                maxtempF="15"
+                mintempC="8"
+                mintempF="10" />
+	
+	<weather    weatherId="2" 
+                venueId="1"
+                date="2014-01-02"
+                maxtempC="10"
+                maxtempF="15"
+                mintempC="8"
+                mintempF="10" /> 
+    
+    
+</dataset>

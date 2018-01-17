@@ -1,0 +1,301 @@
+/** Noticeboard */
+.gf-post {
+	margin: 10px 0px;
+}
+.gf-single-post {
+	border: 1px solid #BFBFBF;
+}
+
+.gf-post-main {
+	background-color: #FFFFFF;
+	padding: 2px;
+}
+
+.gf-post-author > img {
+	float: left;
+	padding-right: 5px;
+}
+
+.gf-post-author > span.userName {
+	font-weight: bold;
+	display: block;
+	padding-top: 5px;
+}
+.gf-post-author > span.postTime {
+	font-weight: lighter;
+	font-size: 10px;
+	color: #aaa;
+	display: block;
+}
+.gf-post-author > div.clear {
+	clear: both;
+}
+
+#gf-noticeboard-end {
+	padding: 5px;
+	color: blue;
+	text-align: center;
+}
+
+.gf-post-edit, .gf-post-delete, .gf-comment-edit, .gf-comment-delete {
+	cursor: pointer;	
+}
+.gf-post-edit:HOVER, .gf-post-delete:HOVER, .gf-comment-edit:HOVER, .gf-comment-delete:HOVER {
+	background: silver;	
+}
+
+
+.show-more-message {
+	padding: 5px 2px 5px 5px;
+	text-decoration: none;
+	text-align: right;
+}
+
+
+.gf-post-comment-bar {
+	background-color: #E6E6E6;
+	margin: 0px;
+	padding: 2px;
+	text-align: right;
+	font-size: 10px;
+}
+
+
+
+
+.gf-post-comment {
+	background-color: #E6E6E6;
+	margin: 0px;
+	padding: 5px 2px;
+	text-align: left;
+	font-size: 11px;
+}
+
+.gf-comment {
+	margin: 5px 5px;
+}
+
+.
+.gf-comment-post {
+	margin: 10px 0px;
+}
+
+.gf-comment-username {
+	margin-right: 5px;
+	font-weight: bold;
+}
+.gf-comment-datatime {
+	font-weight: lighter;
+	font-size: 10px;
+	color: #aaa;
+	display: block;
+}
+
+.gf-comment-image-container {
+	float: left;
+	width: 10%;
+}
+.gf-comment-image-container > img {
+	width: 40px;
+	height: 40px;
+}
+
+.gf-comment-container {
+	float: right;
+	width: 90%;
+}
+
+.gf-comment-post > div.clear {
+	clear: both;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.topic {
+    padding: 2px 0 0 20px;
+    background:transparent url('../../resources/images/post.gif') no-repeat;
+}
+
+.topic b {
+    font-family: tahoma, verdana;
+    display: block;
+    color: #333;
+}
+
+.author: {
+    color: #333
+}
+
+.eventSummaryGrid .x-grid-rowbody {
+    margin: 5px 20px 10px 25px !important;
+    color: #555;
+    font-size: 11px;
+}
+
+
+.myimagebutton_home {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/home-32.png') !important; border:none
+}
+.myimagebutton_forum {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/my_topic-32.png') !important; border:none
+}
+.myimagebutton_email {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/read_message-32.png') !important; border:none
+}
+
+.myimagebutton_profile {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/contacts-32.png') !important; border:none
+}
+
+.myimagebutton_settings {
+    width:32px!important; 
+    height:32px!important;
+/*     padding: 2px; */
+/*     border: 2px solid red; */
+    background-image: url('../../resources/images/settings2-32.png') !important; border:none
+}
+
+.myimagebutton_cancel {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/cancel-32.png') !important;  border:none
+}
+
+.myimagebutton_save {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/save-32.png') !important; border:none
+}
+
+.myimagebutton_about {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/about-32.png') !important; border:none
+}
+
+.myimagebutton_fishinglog {
+    width:32px!important; 
+    height:32px!important;
+    background-image: url('../../resources/images/fish-2-32.png') !important; border:none
+}
+
+.balloons {
+    background-image: url('../../resources/images/balloons-white.png') !important; border:none
+}
+
+.balloon {
+    background-image: url('../../resources/images/balloon-white.png') !important; border:none
+}
+
+.forumSummaryGrid .x-grid-rowbody {
+    margin: 0px 0px 0px 50px !important;
+    padding: 0 0 0 0 !important;
+    color: #555;
+    font-size: 11px;
+}
+
+.x-form-item-label {text-transform:uppercase;}
+
+.delete {
+	background-image: url('../../resources/images/minus-circle-frame.png')
+}
+
+
+
+/** WeatherComponent */
+
+ul.outlook_div {
+    list-style-type: none;
+    margin: 0px;
+    overflow: hidden;
+    padding: 5px;
+}
+
+ul.outlook_div li {
+    float: left;
+    padding-right: 5px;
+}
+.outlook_box1 {
+    color: #3c3c3c;
+    font-size: 22px;
+    width: 50%;
+}
+.outlook_box2 {
+    color: #3c3c3c;
+    font-size: 12px;
+    width: 50%;
+}
+.outlook_box2 .outlook_left {
+    float: left;
+    font-weight: bold;
+    width: 40%;
+}
+.outlook_box2 .outlook_right {
+    float: right;
+    width: 60%;
+}
+
+.outlookclear {
+    border: 0 none;
+    clear: both;
+    height: 0;
+    line-height: 0;
+    margin: 0;
+    outline: medium none;
+    padding: 0;
+    width: 0;
+}
+
+
+span.click-span {
+	color: blue;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+
+.member-photo {
+	width: 256px;
+	height: 256px;
+}
+
+
+
+/** Hack to fix tool tip lengths (extjs bug) */
+.x-tip {
+  width: auto !important;
+ }
+ 
+ .x-tip-body {
+  width: auto !important;
+ }
+ 
+ .x-tip-body span {
+  width: auto !important;
+ }

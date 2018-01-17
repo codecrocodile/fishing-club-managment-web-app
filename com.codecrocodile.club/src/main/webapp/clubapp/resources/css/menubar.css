@@ -1,0 +1,25 @@
+.ux-menubar,
+.x-nlg .ux-menubar {
+    background-image: none    !important;
+    background-color: #BF7730 !important;
+    border: 0 0 0 0 !important;
+}
+
+.ux-menubar-item-link-noicon {
+  padding: 6px 2px 3px 6px;
+}
+
+.ux-menubar-item-noicon {
+    display: none;
+}
+
+.ux-menubar  .x-btn-default-toolbar-small {
+    background-color: #D99757;
+    background-image: -moz-linear-gradient(center top , #FFC790, #D99757 50%, #D99757);
+    
+    border-color: #D99757 	;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 3px;
+}

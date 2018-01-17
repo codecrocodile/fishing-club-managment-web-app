@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codecrocodile.dao.mybatis.mappers.CatchRecordMapper">
+
+	<resultMap id="venueResultMap" type="com.codecrocodile.club.model.lookup.Venue">
+		<id property="venueId" column="venueId" />
+		<result property="accountId" column="accountId" />
+		<result property="description" column="description" />
+		<result property="lon" column="lon" />
+		<result property="lat" column="lat" />
+		<result property="zoom" column="zoom" />
+	</resultMap>
+	
+	<resultMap id="catchRecordResultMap" type="com.codecrocodile.club.model.catchrecord.CatchRecord">
+		<id property="id" column="catchRecordId" />
+		<result property="userId" column="userId" />
+		<result property="date" column="date" />
+		<result property="fishingNotes" column="fishingNotes" />
+		<collection property="catchRecordItems" 
+			ofType="com.codecrocodile.club.model.catchrecord.CatchRecordItem"
+			column="catchRecordId" 
+			select="getCatchRecordItemForGetCatchRecord">
+		</collection>
+	</resultMap>
+	
+	<resultMap id="catchRecordItemResultMap" type="com.codecrocodile.club.model.catchrecord.CatchRecordItem">
+		<id property="id" column="catchRecordItemId" />
+		<result property="venueId" column="venueId" />
+		<result property="lon" column="lon" />
+		<result property="lat" column="lat" />
+		<result property="timePeriod" column="timePeriod" />
+		<result property="weight" column="weight" />
+		<result property="killed" column="killed" />
+	</resultMap>
+	
+	<resultMap id="catchLogResultMap" type="com.codecrocodile.club.model.catchrecord.CatchLog">
+		<id property="catchRecordId" column="catchRecordId" />
+		<result property="date" column="date" />
+		<result property="waters" column="waters" />
+		<result property="notes" column="fishingNotes" />
+		<result property="numberOfFish" column="numberOfFish" />
+		<result property="memberName" column="memberName" />
+	</resultMap>
+	
+	<select id="getVenue" resultMap="venueResultMap">
+		SELECT 
+		  venueId,
+		  accountId,
+		  description,
+		  lon,
+		  lat,
+		  zoom
+		FROM venue
+		WHERE venueId = #{venueId}
+	</select>
+	
+	<select id="getCatchRecord" resultMap="catchRecordResultMap">
+		SELECT catchRecordId, userId, date, fishingNotes 
+		FROM catchrecord
+		WHERE userId = #{userId} AND date = #{date}
+	</select>
+	
+	<select id="getCatchRecordItemForGetCatchRecord" resultMap="catchRecordItemResultMap">
+		SELECT catchRecordItemId, catchRecordId, venueId, lon, lat, timePeriod, weight, killed 
+		FROM catchrecorditem
+		WHERE catchRecordId = #{catchRecordId}
+	</select>
+
+	<insert id="insertCatchRecord" parameterType="com.codecrocodile.club.model.catchrecord.CatchRecord" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO catchrecord(userId, date, fishingNotes) 
+		VALUES (#{userId}, #{date}, #{fishingNotes})
+	</insert>
+	
+	<insert id="insertCatchRecordItem" parameterType="com.codecrocodile.club.model.catchrecord.CatchRecordItem" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO catchrecorditem (catchRecordId, venueId, lon, lat, timePeriod, weight, killed) 
+		VALUES (#{catchRecordId}, #{venueId}, #{lon}, #{lat}, #{timePeriod}, #{weight}, #{killed})
+	</insert>
+
+	<update id="updateCatchRecord" parameterType="com.codecrocodile.club.model.catchrecord.CatchRecord">
+		UPDATE catchrecord 
+		SET userId = #{userId} , date = #{date} , fishingNotes = #{fishingNotes} 
+		WHERE catchRecordId = #{id}
+	</update>
+	
+	<update id="updateCatchRecordItem" parameterType="com.codecrocodile.club.model.catchrecord.CatchRecordItem">
+		UPDATE catchrecorditem 
+		SET catchRecordId = #{catchRecordId} , venueId = #{venueId}, lon = #{lon}, lat = #{lat}, timePeriod = #{timePeriod}, weight = #{weight}, killed = #{killed}
+		WHERE catchRecordItemId = #{id}
+	</update>
+
+	<delete id="deleteOrphanCatchRecordItem">
+		DELETE FROM catchrecorditem
+		WHERE catchRecordItemId IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<select id="getCatchLogTotalCount" parameterType="int" resultType="int">
+		select count(1) as cnt 
+		from catchrecord cr
+    	join user u on cr.userId = u.userId
+		where u.accountId = ${accountId}
+	</select>
+	
+	<select id="getCatchLogs" resultMap="catchLogResultMap">
+	    select cr.catchRecordId, cr.date, 
+	      GROUP_CONCAT(distinct v.description SEPARATOR ', ') as waters, cr.fishingNotes, 
+	      count(1) as numberOfFish, 
+	      concat(u.forename, ' ', u.surname) as memberName
+	    from catchrecord cr
+	    join catchrecorditem cri on cr.catchRecordId = cri.catchRecordId
+	    join venue v on cri.venueId = v.venueId
+	    join user u on cr.userId = u.userId
+	    where u.accountId = #{accountId}
+	    group by cr.catchRecordId, cr.fishingNotes, u.forename, u.surname
+	    order by cr.date desc
+	    LIMIT #{skipRows}, #{pageSize}
+	</select>
+</mapper>

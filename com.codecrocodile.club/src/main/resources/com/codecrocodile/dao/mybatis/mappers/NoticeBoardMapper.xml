@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codecrocodile.dao.mybatis.mappers.NoticeBoardMapper">
+
+	<resultMap id="postResultMap" type="com.codecrocodile.club.model.Post">
+		<id property="postId" column="postId" />
+		<result property="accountId" column="accountId" />
+		<result property="userName" column="userName" />
+		<result property="userImage" column="photoThumb" />
+		<result property="date" column="date" />
+		<result property="text" column="text" />
+		<collection property="postComments" ofType="com.codecrocodile.club.model.PostComment">
+			<id property="postCommentId" column="pcPostCommentId"/>
+			<result property="postId" column="pcPostId" />
+			<result property="userName" column="pcUserName" />
+			<result property="userImage" column="pcPhotoThumb" />
+			<result property="date" column="pcDate" />
+			<result property="text" column="pcText" />
+		</collection>
+	</resultMap>
+	
+	<resultMap id="postCommentResultMap" type="com.codecrocodile.club.model.PostComment">
+		<id property="postCommentId" column="postCommentId" />
+		<result property="postId" column="postId" />
+		<result property="userName" column="pcUserName" />
+		<result property="userImage" column="pcPhotoThumb" />
+		<result property="date" column="pcDate" />
+		<result property="text" column="pcText" />
+	</resultMap>
+	
+	<insert id="insertPost" parameterType="com.codecrocodile.club.model.Post" useGeneratedKeys="true" keyProperty="postId">
+		INSERT INTO post(
+		   accountId
+		  ,userId
+		  ,date
+		  ,text
+		) VALUES (
+		   #{accountId}
+		  ,#{userId}
+		  ,#{date}
+		  ,#{text}
+		)
+	</insert>
+	
+	<update id="updatePost" parameterType="com.codecrocodile.club.model.Post">
+		UPDATE post 
+		SET text = #{text}
+		WHERE postId = #{postId}
+	</update>
+	
+	<select id="getPosts" resultMap="postResultMap">
+		SELECT p.postId, p.accountId, p.userId, p.date, p.text, CONCAT(pu.forename, ' ', pu.surname) AS userName, pu.photoThumb,
+			  pc.postCommentId AS pcPostCommentId, pc.postId AS pcPostId, pc.userId AS pcUserId, pc.date AS pcDate, pc.text AS pcText, 
+			  CONCAT(pcu.forename, ' ', pcu.surname) AS pcUserName, pcu.photoThumb AS pcPhotoThumb
+			FROM post p
+	    JOIN (
+	      SELECT postId
+	  		FROM post
+	  		WHERE accountId = #{accountId} AND retired &lt;&gt; 1 
+	  		ORDER BY date DESC
+	  		LIMIT #{skipRows}, #{pageSize}
+	    ) t on p.postId = t.postId
+		JOIN user pu on p.userId = pu.userId 
+		LEFT OUTER JOIN postcomment pc on p.postId = pc.postId AND (pc.retired IS NULL OR pc.retired &lt;&gt; 1)
+		LEFT OUTER JOIN user pcu on pc.userId = pcu.userId
+		ORDER BY p.date DESC, pc.date DESC
+	</select>
+	
+	<select id="getPostComments" resultMap="postCommentResultMap">
+
+	</select>
+	
+	<select id="getPostUserId" parameterType="long" resultType="long">
+		SELECT userId
+		FROM post
+		WHERE postId = #{postId}
+	</select>
+	
+	<update id="retirePost">
+		UPDATE post 
+		SET retired = 1
+		WHERE postId = #{postId}
+	</update>
+	
+	
+	<select id="getPostCount" parameterType="int" resultType="int">
+		select count(1) as cnt 
+		from post p
+		where p.accountId = #{accountId} AND retired &lt;&gt; 1
+	</select>
+	
+	<!-- Post Comments -->
+	
+	<select id="getPostCommentUserId" parameterType="long" resultType="long">
+		SELECT userId 
+		FROM postcomment
+		WHERE postCommentId = #{postCommentId}
+	</select>
+
+	<insert id="insertPostComment" parameterType="com.codecrocodile.club.model.PostComment" useGeneratedKeys="true" keyProperty="postCommentId">
+		INSERT INTO postcomment (postId, userId, date, text, retired) 
+		VALUES (#{postId}, #{userId}, #{date}, #{text}, #{retired});
+	</insert>
+	
+	<update id="updatePostComment">
+		UPDATE postcomment 
+		SET text = #{text}
+		WHERE postCommentId = #{postCommentId}
+	</update>
+	
+	<update id="retirePostComment">
+		UPDATE postcomment 
+		SET retired = 1
+		WHERE postCommentId = #{postCommentId} 
+	</update>
+	
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codecrocodile.dao.mybatis.mappers.WeatherMapper">
+
+<!-- 	<resultMap id="weatherResultMap" type="Weather"> -->
+<!-- 		<id property="venueId" column="venueId" /> -->
+<!-- 		<result property="accountId" column="accountId" /> -->
+<!-- 		<result property="date" column="date" /> -->
+<!-- 		<result property="description" column="description" /> -->
+<!-- 		<result property="lon" column="lon" /> -->
+<!-- 		<result property="lat" column="lat" /> -->
+<!-- 		<result property="zoom" column="zoom" /> -->
+<!-- 	</resultMap> -->
+	
+<!-- 	<resultMap id="weatherHourlyResultMap" type="WeatherHourly"> -->
+<!-- 		<id property="venueId" column="venueId" /> -->
+<!-- 		<result property="accountId" column="accountId" /> -->
+<!-- 		<result property="date" column="date" /> -->
+<!-- 		<result property="description" column="description" /> -->
+<!-- 		<result property="lon" column="lon" /> -->
+<!-- 		<result property="lat" column="lat" /> -->
+<!-- 		<result property="zoom" column="zoom" /> -->
+<!-- 	</resultMap> -->
+	
+<!-- 	<select id="getWeather" resultMap="weatherResultMap"> -->
+	
+<!-- 	</select> -->
+	
+<!-- 	<insert id=""> -->
+	
+<!-- 	</insert> -->
+	
+<!-- 	<update id=""> -->
+	
+<!-- 	</update> -->
+	
+</mapper>

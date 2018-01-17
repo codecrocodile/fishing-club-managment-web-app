@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
+	<typeAliases>
+		<typeAlias alias="Member" type="com.codecrocodile.club.model.Member" />
+		<typeAlias alias="Venue" type="com.codecrocodile.club.model.lookup.Venue" />
+		<typeAlias alias="Weather" type="com.codecrocodile.club.model.external.Weather" />
+		<typeAlias alias="WeatherHourly" type="com.codecrocodile.club.model.external.WeatherHourly" />
+		<typeAlias alias="Invoice" type="com.codecrocodile.club.model.accounting.Invoice" />
+		<typeAlias alias="InvoiceLine" type="com.codecrocodile.club.model.accounting.InvoiceLine" />
+	</typeAliases>
+</configuration>

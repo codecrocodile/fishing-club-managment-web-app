@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codecrocodile.dao.mybatis.mappers.AccountingMapper">
+
+	<resultMap id="invoiceResultMap" type="Invoice">
+		<id property="invoiceId" column="invoiceId" />
+		<result property="orderId" column="orderId" />
+		<result property="date" column="date" />
+		<collection property="invoiceLines" ofType="InvoiceLine">
+			<id property="invoiceLineId" column="invoiceLineId"/>
+			<result property="invoiceId" column="invoiceId" />
+			<result property="productId" column="productId" />
+			<result property="productQuantity" column="productQuantity" />
+			<result property="productName" column="productName" />
+			<result property="productDescription" column="productDescription" />
+		</collection>
+	</resultMap>
+
+	<select id="getMemberInvoices" parameterType="int" resultMap="invoiceResultMap">
+		SELECT o.userId, i.invoiceId, i.`date`, il.invoicelineId, il.productId, il.productQuantity, il.totalPrice, p.name AS productName, p.description AS productDescription  
+		FROM `order` o
+		JOIN invoice i ON i.orderId = o.orderId
+		JOIN invoiceline il ON i.invoiceId = il.invoiceId
+		JOIN product p ON il.productId = p.productId
+		WHERE o.userId = #{userId}
+		ORDER BY i.date 
+	</select>
+
+
+</mapper>

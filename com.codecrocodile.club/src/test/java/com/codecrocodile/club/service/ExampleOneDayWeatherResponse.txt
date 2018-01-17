@@ -1,0 +1,74 @@
+{
+    "data": {
+        "request": [
+            {
+                "query": "London, United Kingdom",
+                "type": "City"
+            }
+        ],
+        "weather": [
+            {
+                "astronomy": [
+                    {
+                        "moonrise": "11:28 AM",
+                        "moonset": "09:39 PM",
+                        "sunrise": "07:38 AM",
+                        "sunset": "03:58 PM"
+                    }
+                ],
+                "date": "2014-11-27",
+                "hourly": [
+                    {
+                        "chanceoffog": "0",
+                        "chanceoffrost": "0",
+                        "chanceofhightemp": "0",
+                        "chanceofovercast": "0",
+                        "chanceofrain": "32",
+                        "chanceofremdry": "0",
+                        "chanceofsnow": "0",
+                        "chanceofsunshine": "66",
+                        "chanceofthunder": "0",
+                        "chanceofwindy": "0",
+                        "cloudcover": "40",
+                        "DewPointC": "8",
+                        "DewPointF": "47",
+                        "FeelsLikeC": "8",
+                        "FeelsLikeF": "47",
+                        "HeatIndexC": "10",
+                        "HeatIndexF": "50",
+                        "humidity": "89",
+                        "precipMM": "2.5",
+                        "pressure": "1009",
+                        "tempC": "10",
+                        "tempF": "50",
+                        "time": "24",
+                        "visibility": "9",
+                        "weatherCode": "293",
+                        "weatherDesc": [
+                            {
+                                "value": "Patchy light rain"
+                            }
+                        ],
+                        "weatherIconUrl": [
+                            {
+                                "value": "http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0017_cloudy_with_light_rain.png"
+                            }
+                        ],
+                        "WindChillC": "8",
+                        "WindChillF": "47",
+                        "winddir16Point": "W",
+                        "winddirDegree": "261",
+                        "WindGustKmph": "15",
+                        "WindGustMiles": "9",
+                        "windspeedKmph": "13",
+                        "windspeedMiles": "8"
+                    }
+                ],
+                "maxtempC": "10",
+                "maxtempF": "50",
+                "mintempC": "6",
+                "mintempF": "43"
+            }
+        ]
+    }
+}
